@@ -1,4 +1,4 @@
-package com.secoo.flume.interceptor;
+package com.hotfey.flume.interceptor;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,9 +22,9 @@ public class RegexExtractorInterceptorDateSerializer implements RegexExtractorIn
 	@Override
 	public void configure(Context context) {
 		inputPattern = context.getString("inputPattern");
-		Preconditions.checkArgument(!StringUtils.isEmpty(inputPattern), "Must configure with a valid inputPattern");
+		Preconditions.checkArgument(StringUtils.isNotEmpty(inputPattern), "Must configure with a valid inputPattern");
 		outputPattern = context.getString("outputPattern");
-		Preconditions.checkArgument(!StringUtils.isEmpty(outputPattern), "Must configure with a valid outputPattern");
+		Preconditions.checkArgument(StringUtils.isNotEmpty(outputPattern), "Must configure with a valid outputPattern");
 
 	}
 

@@ -1,4 +1,4 @@
-package com.secoo.flume.interceptor;
+package com.hotfey.flume.interceptor;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

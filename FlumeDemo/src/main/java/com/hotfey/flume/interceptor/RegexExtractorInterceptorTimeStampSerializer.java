@@ -20,7 +20,7 @@ public class RegexExtractorInterceptorTimeStampSerializer implements RegexExtrac
 	@Override
 	public void configure(Context context) {
 		outputPattern = context.getString("outputPattern");
-		Preconditions.checkArgument(StringUtils.isNotEmpty(outputPattern), "Must configure with a valid outputPattern");
+		Preconditions.checkArgument(!StringUtils.isEmpty(outputPattern), "Must configure with a valid outputPattern");
 
 	}
 

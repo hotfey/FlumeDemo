@@ -4,7 +4,7 @@ import org.apache.flume.Context;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.hotfey.flume.interceptor.RegexExtractorInterceptorAssignHourSerializer;
+import com.hotfey.flume.interceptor.RegexExtractorInterceptorHourAssignSerializer;
 
 public class RegexExtractorInterceptorHourAssignSerializerTest {
 	@Ignore
@@ -13,7 +13,7 @@ public class RegexExtractorInterceptorHourAssignSerializerTest {
 		Context context = new Context();
 		context.put("hours", "-1");
 		context.put("outputPattern", "yyyy/MM/dd/HH");
-		RegexExtractorInterceptorAssignHourSerializer customSerializer = new RegexExtractorInterceptorAssignHourSerializer();
+		RegexExtractorInterceptorHourAssignSerializer customSerializer = new RegexExtractorInterceptorHourAssignSerializer();
 		customSerializer.configure(context);
 		System.out.println(customSerializer.serialize(""));
 	}

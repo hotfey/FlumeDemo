@@ -1,4 +1,4 @@
-package com.hotfey.flume.interceptro;
+package com.hotfey.flume.interceptor;
 
 import org.apache.flume.Context;
 import org.junit.Ignore;

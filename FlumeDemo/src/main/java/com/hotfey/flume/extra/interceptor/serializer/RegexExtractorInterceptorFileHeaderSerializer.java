@@ -1,4 +1,4 @@
-package com.hotfey.flume.interceptor;
+package com.hotfey.flume.extra.interceptor.serializer;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,7 +11,7 @@ import org.apache.flume.interceptor.RegexExtractorInterceptorSerializer;
 
 import com.google.common.base.Preconditions;
 
-public class RegexExtractorInterceptorDateSerializer implements RegexExtractorInterceptorSerializer {
+public class RegexExtractorInterceptorFileHeaderSerializer implements RegexExtractorInterceptorSerializer {
 	private String inputPattern;
 	private String outputPattern;
 
@@ -35,7 +35,7 @@ public class RegexExtractorInterceptorDateSerializer implements RegexExtractorIn
 		try {
 			date = simpleDateFormat.parse(value);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			return "tmp";
 		}
 
 		simpleDateFormat = new SimpleDateFormat(outputPattern);

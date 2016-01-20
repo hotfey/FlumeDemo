@@ -1,4 +1,4 @@
-package com.hotfey.flume.interceptor;
+package com.hotfey.flume.interceptor.serializer;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,8 +9,10 @@ import org.apache.flume.conf.ComponentConfiguration;
 import org.apache.flume.interceptor.RegexExtractorInterceptorSerializer;
 
 import com.google.common.base.Preconditions;
+import com.hotfey.flume.util.DateAssign;
 
-public class RegexExtractorInterceptorTimeStampSerializer implements RegexExtractorInterceptorSerializer {
+public class RegexExtractorInterceptorHourAssignSerializer implements RegexExtractorInterceptorSerializer {
+	private String hours;
 	private String outputPattern;
 
 	@Override
@@ -19,6 +21,8 @@ public class RegexExtractorInterceptorTimeStampSerializer implements RegexExtrac
 
 	@Override
 	public void configure(Context context) {
+		hours = context.getString("hours");
+		Preconditions.checkArgument(StringUtils.isNotEmpty(hours), "Must configure with a valid hours");
 		outputPattern = context.getString("outputPattern");
 		Preconditions.checkArgument(StringUtils.isNotEmpty(outputPattern), "Must configure with a valid outputPattern");
 
@@ -26,7 +30,7 @@ public class RegexExtractorInterceptorTimeStampSerializer implements RegexExtrac
 
 	@Override
 	public String serialize(String value) {
-		Date date = new Date(Long.parseLong(value + "000"));
+		Date date = DateAssign.assignHour(Integer.parseInt(hours));
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(outputPattern);
 		return simpleDateFormat.format(date);
 

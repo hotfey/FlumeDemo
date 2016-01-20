@@ -1,10 +1,10 @@
-package com.hotfey.flume.interceptor;
+package com.hotfey.flume.interceptor.serializer;
 
 import org.apache.flume.Context;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.hotfey.flume.interceptor.RegexExtractorInterceptorDateSerializer;
+import com.hotfey.flume.interceptor.serializer.RegexExtractorInterceptorDateSerializer;
 
 public class RegexExtractorInterceptorDateSerializerTest {
 	@Ignore

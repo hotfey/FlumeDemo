@@ -1,5 +1,6 @@
-package com.hotfey.flume.interceptor;
+package com.hotfey.flume.interceptor.serializer;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -9,10 +10,9 @@ import org.apache.flume.conf.ComponentConfiguration;
 import org.apache.flume.interceptor.RegexExtractorInterceptorSerializer;
 
 import com.google.common.base.Preconditions;
-import com.hotfey.flume.util.DateAssign;
 
-public class RegexExtractorInterceptorHourAssignSerializer implements RegexExtractorInterceptorSerializer {
-	private String hours;
+public class RegexExtractorInterceptorDateSerializer implements RegexExtractorInterceptorSerializer {
+	private String inputPattern;
 	private String outputPattern;
 
 	@Override
@@ -21,8 +21,8 @@ public class RegexExtractorInterceptorHourAssignSerializer implements RegexExtra
 
 	@Override
 	public void configure(Context context) {
-		hours = context.getString("hours");
-		Preconditions.checkArgument(StringUtils.isNotEmpty(hours), "Must configure with a valid hours");
+		inputPattern = context.getString("inputPattern");
+		Preconditions.checkArgument(StringUtils.isNotEmpty(inputPattern), "Must configure with a valid inputPattern");
 		outputPattern = context.getString("outputPattern");
 		Preconditions.checkArgument(StringUtils.isNotEmpty(outputPattern), "Must configure with a valid outputPattern");
 
@@ -30,8 +30,15 @@ public class RegexExtractorInterceptorHourAssignSerializer implements RegexExtra
 
 	@Override
 	public String serialize(String value) {
-		Date date = DateAssign.assignHour(Integer.parseInt(hours));
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(outputPattern);
+		Date date = null;
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(inputPattern);
+		try {
+			date = simpleDateFormat.parse(value);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		simpleDateFormat = new SimpleDateFormat(outputPattern);
 		return simpleDateFormat.format(date);
 
 	}
